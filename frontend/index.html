@@ -1,1 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSense AI - Smart Crop Advisory Agent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #2d5a27;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            min-height: calc(100vh - 100px);
+        }
+
+        .chat-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card h3 {
+            color: #2d5a27;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .message.user .avatar {
+            background: #667eea;
+        }
+
+        .message.assistant .avatar {
+            background: #2d5a27;
+        }
+
+        .message-content {
+            background: white;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            max-width: 70%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-container input:focus {
+            border-color: #667eea;
+        }
+
+        .voice-btn, .send-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .voice-btn {
+            background: #28a745;
+        }
+
+        .voice-btn:hover {
+            background: #218838;
+            transform: scale(1.1);
+        }
+
+        .voice-btn.recording {
+            background: #dc3545;
+            animation: pulse 1s infinite;
+        }
+
+        .send-btn {
+            background: #667eea;
+        }
+
+        .send-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .language-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .status {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .weather-card h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .weather-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .weather-item {
+            text-align: center;
+        }
+
+        .weather-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .weather-item .label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .recommendations {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .recommendations h4 {
+            color: #2d5a27;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid #28a745;
+        }
+
+        .recommendation-item .title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .recommendation-item .desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌾 AgriSense AI</h1>
+        <div class="subtitle">Smart Crop Advisory Agent - Your Digital Agronomist</div>
+    </div>
+
+    <div class="container">
+        <div class="chat-section">
+            <div class="controls">
+                <select class="language-select" id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                </select>
+                <div class="status" id="status">Ready to help with your farming queries!</div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    <div class="avatar">AI</div>
+                    <div class="message-content">
+                        🌾 Welcome to AgriSense AI! I'm your digital agronomist. I can help you with:
+                        <br>• Crop management and scheduling
+                        <br>• Weather-based farming advice  
+                        <br>• Pest and disease identification
+                        <br>• Fertilizer recommendations
+                        <br>• Market insights
+                        <br><br>Try asking: "Should I irrigate my wheat today?" or "What fertilizer should I use for my tomatoes?"
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <button class="voice-btn" id="voiceBtn" title="Voice Input">🎤</button>
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="Ask about your crops, weather, or farming advice..." />
+                </div>
+                <button class="send-btn" id="sendBtn" title="Send Message">📤</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="profile-card">
+                <h3>👨‍🌾 Farmer Profile</h3>
+                <div class="form-group">
+                    <label>Farmer Name</label>
+                    <input type="text" id="farmerName" placeholder="Enter your name" />
+                </div>
+                <div class="form-group">
+                    <label>Farm Location</label>
+                    <input type="text" id="farmLocation" placeholder="e.g., Pune, Maharashtra" />
+                </div>
+                <div class="form-group">
+                    <label>Farm Size (acres)</label>
+                    <input type="number" id="farmSize" placeholder="e.g., 5" />
+                </div>
+                <div class="form-group">
+                    <label>Primary Crop</label>
+                    <select id="primaryCrop">
+                        <option value="">Select Crop</option>
+                        <option value="rice">Rice</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="sugarcane">Sugarcane</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="tomato">Tomato</option>
+                        <option value="onion">Onion</option>
+                        <option value="potato">Potato</option>
+                        <option value="maize">Maize</option>
+                        <option value="soybean">Soybean</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Soil Type</label>
+                    <select id="soilType">
+                        <option value="">Select Soil Type</option>
+                        <option value="clay">Clay</option>
+                        <option value="loamy">Loamy</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="black">Black Soil</option>
+                        <option value="red">Red Soil</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="profile-card weather-card">
+                <h4>🌤️ Weather Today</h4>
+                <div id="weatherInfo">
+                    <div class="weather-info">
+                        <div class="weather-item">
+                            <div class="value" id="temperature">28°C</div>
+                            <div class="label">Temperature</div>
+                        </div>
+                        <div class="weather-item">
+                            <div class="value" id="humidity">65%</div>
+                            <div class="label">Humidity</div>
+                        </div>
+                        <div class="weather-item">
+                            <div class="value" id="rainfall">5mm</div>
+                            <div class="label">Rain Forecast</div>
+                        </div>
+                        <div class="weather-item">
+                            <div class="value" id="windSpeed">12 km/h</div>
+                            <div class="label">Wind Speed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-card recommendations">
+                <h4>💡 Smart Recommendations</h4>
+                <div id="recommendationsContainer">
+                    <div class="recommendation-item">
+                        <div class="title">🌧️ Rain Alert</div>
+                        <div class="desc">Light rain expected tomorrow. Skip irrigation today.</div>
+                    </div>
+                    <div class="recommendation-item">
+                        <div class="title">🌱 Growth Stage</div>
+                        <div class="desc">Your wheat is in tillering stage. Apply nitrogen fertilizer.</div>
+                    </div>
+                    <div class="recommendation-item">
+                        <div class="title">📈 Market Price</div>
+                        <div class="desc">Onion prices up 15% this week. Good time to sell.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AgriSenseAI {
+            constructor() {
+                this.isRecording = false;
+                this.recognition = null;
+                this.currentLanguage = 'en';
+                this.farmerData = this.loadFarmerData();
+                this.conversationHistory = [];
+                this.knowledgeBase = this.initializeKnowledgeBase();
+                
+                this.initializeElements();
+                this.initializeEventListeners();
+                this.initializeSpeechRecognition();
+                this.updateWeather();
+                this.loadFarmerProfile();
+                
+                // Auto-save farmer data on changes
+                this.setupAutoSave();
+            }
+
+            initializeElements() {
+                this.chatMessages = document.getElementById('chatMessages');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendBtn = document.getElementById('sendBtn');
+                this.voiceBtn = document.getElementById('voiceBtn');
+                this.languageSelect = document.getElementById('languageSelect');
+                this.status = document.getElementById('status');
+                
+                // Profile elements
+                this.farmerName = document.getElementById('farmerName');
+                this.farmLocation = document.getElementById('farmLocation');
+                this.farmSize = document.getElementById('farmSize');
+                this.primaryCrop = document.getElementById('primaryCrop');
+                this.soilType = document.getElementById('soilType');
+            }
+
+            initializeEventListeners() {
+                this.sendBtn.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+                this.voiceBtn.addEventListener('click', () => this.toggleVoiceRecording());
+                this.languageSelect.addEventListener('change', (e) => {
+                    this.currentLanguage = e.target.value;
+                    this.updateStatus(`Language changed to ${e.target.selectedOptions[0].text}`);
+                });
+            }
+
+            initializeSpeechRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    
+                    this.recognition.onstart = () => {
+                        this.isRecording = true;
+                        this.voiceBtn.classList.add('recording');
+                        this.updateStatus('Listening... Speak now!');
+                    };
+                    
+                    this.recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        this.messageInput.value = transcript;
+                        this.updateStatus(`Heard: "${transcript}"`);
+                    };
+                    
+                    this.recognition.onend = () => {
+                        this.isRecording = false;
+                        this.voiceBtn.classList.remove('recording');
+                        this.updateStatus('Voice input complete');
+                    };
+                    
+                    this.recognition.onerror = (event) => {
+                        this.updateStatus(`Voice recognition error: ${event.error}`);
+                        this.isRecording = false;
+                        this.voiceBtn.classList.remove('recording');
+                    };
+                }
+            }
+
+            toggleVoiceRecording() {
+                if (!this.recognition) {
+                    this.updateStatus('Voice recognition not supported in this browser');
+                    return;
+                }
+
+                if (this.isRecording) {
+                    this.recognition.stop();
+                } else {
+                    // Set language for speech recognition
+                    const langMap = {
+                        'en': 'en-US',
+                        'hi': 'hi-IN',
+                        'te': 'te-IN',
+                        'ta': 'ta-IN',
+                        'mr': 'mr-IN'
+                    };
+                    this.recognition.lang = langMap[this.currentLanguage] || 'en-US';
+                    this.recognition.start();
+                }
+            }
+
+            async sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                // Add user message to chat
+                this.addMessage('user', message);
+                this.messageInput.value = '';
+
+                // Show typing indicator
+                this.showTypingIndicator();
+
+                // Generate AI response
+                setTimeout(async () => {
+                    const response = await this.generateResponse(message);
+                    this.hideTypingIndicator();
+                    this.addMessage('assistant', response);
+                    
+                    // Speak response if voice is enabled
+                    this.speakResponse(response);
+                    
+                    // Update recommendations based on conversation
+                    this.updateRecommendations(message, response);
+                }, 1500);
+            }
+
+            addMessage(sender, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'avatar';
+                avatar.textContent = sender === 'user' ? '👨‍🌾' : '🤖';
+                
+                const messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.innerHTML = content;
+                
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(messageContent);
+                this.chatMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+                
+                // Save to conversation history
+                this.conversationHistory.push({ sender, content, timestamp: new Date() });
+            }
+
+            showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message assistant typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = `
+                    <div class="avatar">🤖</div>
+                    <div class="message-content">
+                        AgriSense AI is thinking...
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                this.chatMessages.appendChild(typingDiv);
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+
+            hideTypingIndicator() {
+                const indicator = document.getElementById('typingIndicator');
+                if (indicator) indicator.remove();
+            }
+
+            async generateResponse(message) {
+                const farmerData = this.getFarmerData();
+                const context = this.buildContext(message, farmerData);
+                
+                // Simulate AI processing with knowledge base
+                const response = this.processWithKnowledgeBase(message, context);
+                return response;
+            }
+
+            buildContext(message, farmerData) {
+                const weather = this.getCurrentWeather();
+                const location = farmerData.farmLocation || 'India';
+                const crop = farmerData.primaryCrop || 'general crops';
+                const soil = farmerData.soilType || 'mixed soil';
+                
+                return {
+                    farmer: farmerData,
+                    weather,
+                    location,
+                    crop,
+                    soil,
+                    season: this.getCurrentSeason(),
+                    recentConversation: this.conversationHistory.slice(-3)
+                };
+            }
+
+            processWithKnowledgeBase(message, context) {
+                const msgLower = message.toLowerCase();
+                
+                // Weather-based responses
+                if (msgLower.includes('irrigat') || msgLower.includes('water')) {
+                    return this.getIrrigationAdvice(context);
+                }
+                
+                // Fertilizer advice
+                if (msgLower.includes('fertiliz') || msgLower.includes('nutri')) {
+                    return this.getFertilizerAdvice(context);
+                }
+                
+                // Pest and disease
+                if (msgLower.includes('pest') || msgLower.includes('disease') || msgLower.includes('insect')) {
+                    return this.getPestAdvice(context);
+                }
+                
+                // Crop planning
+                if (msgLower.includes('plant') || msgLower.includes('sow') || msgLower.includes('seed')) {
+                    return this.getPlantingAdvice(context);
+                }
+                
+                // Market information
+                if (msgLower.includes('price') || msgLower.includes('market') || msgLower.includes('sell')) {
+                    return this.getMarketAdvice(context);
+                }
+                
+                // Weather information
+                if (msgLower.includes('weather') || msgLower.includes('rain') || msgLower.includes('temperature')) {
+                    return this.getWeatherAdvice(context);
+                }
+                
+                // General farming advice
+                return this.getGeneralAdvice(message, context);
+            }
+
+            getIrrigationAdvice(context) {
+                const weather = context.weather;
+                const crop = context.crop;
+                
+                if (weather.rainfall > 10) {
+                    return `🌧️ <strong>Skip irrigation today!</strong><br><br>
+                           Heavy rain (${weather.rainfall}mm) is expected. Your ${crop} will get sufficient water naturally.<br><br>
+                           💡 <strong>Tip:</strong> Check soil moisture in 2 days. Clay soil retains water longer than sandy soil.<br><br>
+                           📊 Current conditions: ${weather.temperature}°C, ${weather.humidity}% humidity`;
+                }
+                
+                if (weather.temperature > 35) {
+                    return `🌡️ <strong>Hot weather irrigation needed!</strong><br><br>
+                           Temperature is ${weather.temperature}°C - provide irrigation in early morning (5-7 AM) or evening (6-8 PM).<br><br>
+                           💧 For ${crop}: Water deeply but less frequently to encourage deep root growth.<br><br>
+                           ⚠️ <strong>Avoid midday watering</strong> - causes leaf burn and water waste through evaporation.`;
+                }
+                
+                return `💧 <strong>Regular irrigation recommended</strong><br><br>
+                       Current weather is moderate (${weather.temperature}°C). Water your ${crop} based on soil moisture.<br><br>
+                       🔍 <strong>Soil test:</strong> Insert finger 2 inches deep. If dry, irrigate for 1-2 hours.<br><br>
+                       📅 <strong>Schedule:</strong> Every 2-3 days for ${context.soil} soil during current season.`;
+            }
+
+            getFertilizerAdvice(context) {
+                const crop = context.crop;
+                const soil = context.soil;
+                const season = context.season;
+                
+                const fertilizerMap = {
+                    'rice': { base: 'NPK 20:10:10', amount: '100kg/acre', timing: 'After transplanting' },
+                    'wheat': { base: 'Urea + DAP', amount: '80kg urea/acre', timing: 'At sowing and tillering' },
+                    'tomato': { base: 'NPK 19:19:19', amount: '2-3 bags/acre', timing: 'Weekly application' },
+                    'cotton': { base: 'NPK 17:17:17', amount: '150kg/acre', timing: 'At squaring stage' },
+                    'sugarcane': { base: 'NPK 12:32:16', amount: '200kg/acre', timing: 'At planting' }
+                };
+                
+                const advice = fertilizerMap[crop] || fertilizerMap['rice'];
+                
+                return `🌱 <strong>Fertilizer Recommendation for ${crop}</strong><br><br>
+                       📦 <strong>Fertilizer:</strong> ${advice.base}<br>
+                       ⚖️ <strong>Quantity:</strong> ${advice.amount}<br>
+                       ⏰ <strong>Timing:</strong> ${advice.timing}<br><br>
+                       🌍 <strong>For ${soil} soil:</strong> ${this.getSoilSpecificAdvice(soil)}<br><br>
+                       💡 <strong>Pro tip:</strong> Apply in the morning when soil is moist. Mix with organic compost for better results.<br><br>
+                       ⚠️ Always do soil testing every 6 months for precise nutrient management.`;
+            }
+
+            getSoilSpecificAdvice(soil) {
+                const soilAdvice = {
+                    'clay': 'Apply in smaller doses more frequently. Clay retains nutrients well.',
+                    'sandy': 'Use slow-release fertilizers. Sandy soil needs frequent application.',
+                    'loamy': 'Ideal soil! Standard application rates work well.',
+                    'black': 'Rich in nutrients. Reduce nitrogen, focus on phosphorus.',
+                    'red': 'Add organic matter. May need lime to reduce acidity.'
+                };
+                return soilAdvice[soil] || 'Follow standard fertilizer recommendations.';
+            }
+
+            getPestAdvice(context) {
+                const crop = context.crop;
+                const season = context.season;
+                
+                return `🐛 <strong>Pest Management for ${crop}</strong><br><br>
+                       🔍 <strong>Common pests this season:</strong><br>
+                       • Aphids - Use neem oil spray (10ml/liter)<br>
+                       • Bollworm - Apply Bacillus thuringiensis<br>
+                       • Leaf miners - Yellow sticky traps<br><br>
+                       🌿 <strong>Organic solutions:</strong><br>
+                       • Neem oil + soap solution<br>
+                       • Garlic-chili spray<br>
+                       • Encourage beneficial insects<br><br>
+                       ⏰ <strong>Best time:</strong> Early morning or evening application<br><br>
+                       📞 <strong>Emergency:</strong> If pest damage > 10%, consult local agriculture officer immediately.`;
+            }
+
+            getPlantingAdvice(context) {
+                const season = context.season;
+                const location = context.location;
+                
+                const seasonalCrops = {
+                    'Kharif': ['Rice', 'Cotton', 'Sugarcane', 'Maize', 'Soybean'],
+                    'Rabi': ['Wheat', 'Barley', 'Mustard', 'Peas', 'Gram'],
+                    'Zaid': ['Watermelon', 'Muskmelon', 'Cucumber', 'Fodder crops']
+                };
+                
+                const currentCrops = seasonalCrops[season] || ['Rice', 'Wheat', 'Vegetables'];
+                
+                return `🌾 <strong>Planting Advice for ${season} Season</strong><br><br>
+                       📅 <strong>Recommended crops for ${location}:</strong><br>
+                       ${currentCrops.map(crop => `• ${crop}`).join('<br>')}<br><br>
+                       🌡️ <strong>Current conditions:</strong> Perfect for ${season.toLowerCase()} sowing<br>
+                       💧 <strong>Irrigation:</strong> Ensure adequate water supply before sowing<br>
+                       🌱 <strong>Seed rate:</strong> Use certified seeds from authorized dealers<br><br>
+                       📊 <strong>Success factors:</strong><br>
+                       • Soil preparation 15 days before sowing<br>
+                       • Weather-based sowing timing<br>
+                       • Quality seed treatment<br><br>
+                       🎯 <strong>Expected yield:</strong> Follow recommended practices for 20-30% higher yield.`;
+            }
+
+            getMarketAdvice(context) {
+                const crop = context.crop;
+                
+                // Simulate market data
+                const marketPrices = {
+                    'rice': { price: '₹2,100/quintal', trend: 'stable', advice: 'Good time to sell' },
+                    'wheat': { price: '₹2,300/quintal', trend: 'rising', advice: 'Hold for better prices' },
+                    'tomato': { price: '₹25/kg', trend: 'volatile', advice: 'Sell immediately' },
+                    'onion': { price: '₹30/kg', trend: 'rising', advice: 'Store and sell later' },
+                    'cotton': { price: '₹6,200/quintal', trend: 'stable', advice: 'Sell at current rates' }
+                };
+                
+                const market = marketPrices[crop] || { price: '₹2,000/quintal', trend: 'stable', advice: 'Monitor market' };
+                
+                return `📈 <strong>Market Analysis for ${crop}</strong><br><br>
+                       💰 <strong>Current Price:</strong> ${market.price}<br>
+                       📊 <strong>Market Trend:</strong> ${market.trend}<br>
+                       💡 <strong>Recommendation:</strong> ${market.advice}<br><br>
+                       🏪 <strong>Best selling points:</strong><br>
+                       • Local mandis for immediate sale<br>
+                       • FPO (Farmer Producer Organization)<br>
+                       • Direct to retail chains<br><br>
+                       📱 <strong>Price tracking:</strong> Use eNAM app for real-time prices<br><br>
+                       ⚠️ <strong>Quality matters:</strong> Grade A products get 10-15% premium prices.`;
+            }
+
+            getWeatherAdvice(context) {
+                const weather = context.weather;
+                
+                return `🌤️ <strong>Weather Update & Agricultural Impact</strong><br><br>
+                       🌡️ <strong>Temperature:</strong> ${weather.temperature} (${weather.temperature > 35 ? 'Hot' : weather.temperature < 15 ? 'Cool' : 'Moderate'})<br>
+                       💧 <strong>Humidity:</strong> ${weather.humidity} (${weather.humidity > 70 ? 'High' : 'Moderate'})<br>
+                       🌧️ <strong>Rainfall:</strong> ${weather.rainfall} expected<br>
+                       💨 <strong>Wind Speed:</strong> ${weather.windSpeed}<br><br>
+                       🚜 <strong>Farm Activities Today:</strong><br>
+                       ${this.getTodaysActivities(weather)}<br><br>
+                       📅 <strong>Week Ahead:</strong> Monitor for sudden weather changes<br><br>
+                       ⚡ <strong>Weather Alert:</strong> ${this.getWeatherAlert(weather)}`;
+            }
+
+            getTodaysActivities(weather) {
+                const activities = [];
+                
+                if (weather.rainfall > 10) {
+                    activities.push('• Avoid field operations', '• Check drainage systems', '• Store harvested crops safely');
+                } else if (weather.temperature > 35) {
+                    activities.push('• Irrigate early morning/evening', '• Provide shade to livestock', '• Harvest before 9 AM');
+                } else {
+                    activities.push('• Good day for field operations', '• Suitable for spraying', '• Normal irrigation schedule');
+                }
+                
+                return activities.join('<br>');
+            }
+
+            getWeatherAlert(weather) {
+                if (weather.rainfall > 50) return '🚨 Heavy rain alert! Protect crops from waterlogging.';
+                if (weather.temperature > 40) return '🔥 Heat wave warning! Increase irrigation frequency.';
+                if (weather.windSpeed.includes('25')) return '💨 High wind alert! Secure loose structures.';
+                return '✅ Normal weather conditions. Continue regular farm activities.';
+            }
+
+            getGeneralAdvice(message, context) {
+                const responses = [
+                    `🌾 <strong>General Farming Guidance</strong><br><br>
+                     Based on your query about "${message}", here's what I recommend:<br><br>
+                     🔍 <strong>Analysis:</strong> Your ${context.crop} in ${context.location} needs attention during this ${context.season} season.<br><br>
+                     📋 <strong>Action Plan:</strong><br>
+                     • Monitor crop daily for any changes<br>
+                     • Maintain irrigation schedule<br>
+                     • Apply fertilizers as per soil test<br>
+                     • Keep pest management tools ready<br><br>
+                     💡 <strong>Pro tip:</strong> Document your farming activities in a diary for better planning next season.<br><br>
+                     📞 <strong>Need specific help?</strong> Ask me about irrigation, fertilizers, pests, or market prices!`,
+                    
+                    `👨‍🌾 <strong>Personalized Farm Advice</strong><br><br>
+                     Hello ${context.farmer.farmerName || 'Farmer'}! For your ${context.farmer.farmSize || '5'} acre farm with ${context.crop}:<br><br>
+                     🎯 <strong>Priority Actions:</strong><br>
+                     • Soil health monitoring<br>
+                     • Weather-based decision making<br>
+                     • Quality input management<br>
+                     • Record keeping<br><br>
+                     📊 <strong>Expected Benefits:</strong><br>
+                     Following scientific practices can increase your yield by 25-30%.<br><br>
+                     🔄 <strong>Continuous Learning:</strong> Stay updated with latest agricultural techniques and government schemes.`
+                ];
+                
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            speakResponse(text) {
+                if ('speechSynthesis' in window) {
+                    // Remove HTML tags for speech
+                    const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ');
+                    const utterance = new SpeechSynthesisUtterance(cleanText);
+                    
+                    // Set language
+                    const langMap = {
+                        'en': 'en-US',
+                        'hi': 'hi-IN',
+                        'te': 'te-IN',
+                        'ta': 'ta-IN',
+                        'mr': 'mr-IN'
+                    };
+                    utterance.lang = langMap[this.currentLanguage] || 'en-US';
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1;
+                    
+                    speechSynthesis.speak(utterance);
+                }
+            }
+
+            getFarmerData() {
+                return {
+                    farmerName: this.farmerName.value,
+                    farmLocation: this.farmLocation.value,
+                    farmSize: this.farmSize.value,
+                    primaryCrop: this.primaryCrop.value,
+                    soilType: this.soilType.value
+                };
+            }
+
+            getCurrentWeather() {
+                return {
+                    temperature: document.getElementById('temperature').textContent,
+                    humidity: document.getElementById('humidity').textContent,
+                    rainfall: document.getElementById('rainfall').textContent,
+                    windSpeed: document.getElementById('windSpeed').textContent
+                };
+            }
+
+            getCurrentSeason() {
+                const month = new Date().getMonth();
+                if (month >= 5 && month <= 9) return 'Kharif';  // June-October
+                if (month >= 10 || month <= 2) return 'Rabi';   // November-March
+                return 'Zaid';  // April-May
+            }
+
+            updateWeather() {
+                // Simulate weather data updates
+                const temperatures = ['25°C', '28°C', '32°C', '29°C', '26°C'];
+                const humidity = ['60%', '65%', '70%', '68%', '62%'];
+                const rainfall = ['0mm', '2mm', '5mm', '12mm', '8mm'];
+                const windSpeed = ['8 km/h', '12 km/h', '15 km/h', '10 km/h', '6 km/h'];
+                
+                document.getElementById('temperature').textContent = temperatures[Math.floor(Math.random() * temperatures.length)];
+                document.getElementById('humidity').textContent = humidity[Math.floor(Math.random() * humidity.length)];
+                document.getElementById('rainfall').textContent = rainfall[Math.floor(Math.random() * rainfall.length)];
+                document.getElementById('windSpeed').textContent = windSpeed[Math.floor(Math.random() * windSpeed.length)];
+                
+                // Update every 10 minutes
+                setTimeout(() => this.updateWeather(), 600000);
+            }
+
+            updateRecommendations(userMessage, aiResponse) {
+                const container = document.getElementById('recommendationsContainer');
+                
+                // Generate contextual recommendations
+                const recommendations = this.generateSmartRecommendations(userMessage, aiResponse);
+                
+                container.innerHTML = recommendations.map(rec => `
+                    <div class="recommendation-item">
+                        <div class="title">${rec.icon} ${rec.title}</div>
+                        <div class="desc">${rec.description}</div>
+                    </div>
+                `).join('');
+            }
+
+            generateSmartRecommendations(userMessage, aiResponse) {
+                const farmerData = this.getFarmerData();
+                const weather = this.getCurrentWeather();
+                const crop = farmerData.primaryCrop || 'crops';
+                
+                const recommendations = [
+                    {
+                        icon: '🌧️',
+                        title: 'Weather Alert',
+                        description: `${weather.rainfall} rain expected. Plan your field activities accordingly.`
+                    },
+                    {
+                        icon: '🌱',
+                        title: 'Crop Care',
+                        description: `Your ${crop} needs attention. Monitor for pests and diseases regularly.`
+                    },
+                    {
+                        icon: '💧',
+                        title: 'Irrigation',
+                        description: `Current temperature ${weather.temperature}. Adjust irrigation timing for better efficiency.`
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Market Update',
+                        description: `${crop} prices are stable. Consider quality improvement for better returns.`
+                    },
+                    {
+                        icon: '🎯',
+                        title: 'Action Item',
+                        description: 'Document today\'s activities. Good record keeping improves farm management.'
+                    }
+                ];
+                
+                // Return random 3 recommendations
+                return recommendations.sort(() => 0.5 - Math.random()).slice(0, 3);
+            }
+
+            loadFarmerData() {
+                const saved = localStorage.getItem('agrisense_farmer_data');
+                return saved ? JSON.parse(saved) : {};
+            }
+
+            saveFarmerData() {
+                const data = this.getFarmerData();
+                localStorage.setItem('agrisense_farmer_data', JSON.stringify(data));
+            }
+
+            loadFarmerProfile() {
+                const data = this.farmerData;
+                if (data.farmerName) this.farmerName.value = data.farmerName;
+                if (data.farmLocation) this.farmLocation.value = data.farmLocation;
+                if (data.farmSize) this.farmSize.value = data.farmSize;
+                if (data.primaryCrop) this.primaryCrop.value = data.primaryCrop;
+                if (data.soilType) this.soilType.value = data.soilType;
+            }
+
+            setupAutoSave() {
+                const elements = [this.farmerName, this.farmLocation, this.farmSize, this.primaryCrop, this.soilType];
+                elements.forEach(element => {
+                    element.addEventListener('change', () => this.saveFarmerData());
+                });
+            }
+
+            initializeKnowledgeBase() {
+                return {
+                    crops: {
+                        rice: {
+                            waterRequirement: 'High',
+                            fertilizerSchedule: 'Basal + Top dressing',
+                            commonPests: ['Brown plant hopper', 'Stem borer'],
+                            season: 'Kharif',
+                            duration: '120-150 days'
+                        },
+                        wheat: {
+                            waterRequirement: 'Medium',
+                            fertilizerSchedule: 'At sowing + CRI stage',
+                            commonPests: ['Aphids', 'Termites'],
+                            season: 'Rabi',
+                            duration: '120-130 days'
+                        },
+                        tomato: {
+                            waterRequirement: 'High',
+                            fertilizerSchedule: 'Weekly fertigation',
+                            commonPests: ['Whitefly', 'Fruit borer'],
+                            season: 'Year round',
+                            duration: '90-120 days'
+                        }
+                    },
+                    weather: {
+                        irrigation: {
+                            highTemp: 'Early morning or evening',
+                            rain: 'Avoid irrigation',
+                            normal: 'Regular schedule'
+                        },
+                        spraying: {
+                            highWind: 'Avoid spraying',
+                            rain: 'Postpone spraying',
+                            calm: 'Good for spraying'
+                        }
+                    },
+                    soilTypes: {
+                        clay: { drainage: 'Poor', fertility: 'High', management: 'Deep plowing' },
+                        sandy: { drainage: 'Excellent', fertility: 'Low', management: 'Frequent irrigation' },
+                        loamy: { drainage: 'Good', fertility: 'High', management: 'Ideal for most crops' }
+                    }
+                };
+            }
+
+            updateStatus(message) {
+                this.status.textContent = message;
+                setTimeout(() => {
+                    this.status.textContent = 'Ready to help with your farming queries!';
+                }, 3000);
+            }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.agriSenseAI = new AgriSenseAI();
+        });
+    </script>
+</body>
+</html>
