@@ -1,1 +1,68 @@
-
+{
+  "pm_kisan": {
+    "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+    "description": "Income support scheme for farmers",
+    "benefit": "₹6,000 per year in three equal installments",
+    "eligibility": "All land-holding farmer families",
+    "documents_required": ["Land records", "Aadhaar card", "Bank account details"],
+    "website": "https://pmkisan.gov.in",
+    "status": "Active",
+    "launched": "2019"
+  },
+  "pmfby": {
+    "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+    "description": "Crop insurance scheme",
+    "benefit": "Insurance coverage against crop losses",
+    "premium": {
+      "kharif": "2% of sum insured",
+      "rabi": "1.5% of sum insured", 
+      "annual_commercial": "5% of sum insured"
+    },
+    "eligibility": "All farmers including sharecroppers and tenant farmers",
+    "website": "https://pmfby.gov.in",
+    "status": "Active",
+    "launched": "2016"
+  },
+  "pkvy": {
+    "name": "Paramparagat Krishi Vikas Yojana (PKVY)",
+    "description": "Organic farming promotion scheme",
+    "benefit": "₹50,000 per hectare for 3 years",
+    "coverage": "Organic inputs, certification, marketing support",
+    "eligibility": "Farmers in groups of 50 covering 50 hectares",
+    "website": "https://pgsindia-ncof.gov.in",
+    "status": "Active",
+    "launched": "2015"
+  },
+  "kcc": {
+    "name": "Kisan Credit Card (KCC)",
+    "description": "Credit support for farming activities",
+    "benefit": "Credit limit based on cropping pattern and scale of finance",
+    "interest_rate": "7% (with 3% subvention, effective 4%)",
+    "eligibility": "All farmers including tenant farmers",
+    "features": ["Flexible repayment", "Insurance coverage", "ATM cum debit card"],
+    "website": "Contact nearest bank branch",
+    "status": "Active",
+    "launched": "1998"
+  },
+  "soil_health_card": {
+    "name": "Soil Health Card Scheme",
+    "description": "Soil testing and nutrient management",
+    "benefit": "Free soil testing and customized fertilizer recommendations",
+    "frequency": "Once every 2 years",
+    "eligibility": "All farmers",
+    "parameters_tested": ["pH", "Organic Carbon", "Available NPK", "Micronutrients"],
+    "website": "https://soilhealth.dac.gov.in",
+    "status": "Active",
+    "launched": "2015"
+  },
+  "per_drop_more_crop": {
+    "name": "Per Drop More Crop (Micro Irrigation)",
+    "description": "Water use efficiency through micro irrigation",
+    "subsidy": "55% for small/marginal farmers, 45% for other farmers",
+    "coverage": "Drip irrigation, sprinkler irrigation, rain guns",
+    "eligibility": "All categories of farmers",
+    "website": "Contact State Agriculture Department",
+    "status": "Active",
+    "launched": "2015"
+  }
+}
