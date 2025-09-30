@@ -1,1 +1,55 @@
-
+{
+  "ui": {
+    "title": "एग्रीसेंस एआई - स्मार्ट फसल सलाहकार",
+    "welcome": "नमस्ते! मैं आपका डिजिटल कृषि सलाहकार हूँ।",
+    "farmer_profile": "किसान प्रोफाइल",
+    "farmer_name": "किसान का नाम",
+    "farm_location": "खेत का स्थान",
+    "farm_size": "खेत का आकार (एकड़)",
+    "primary_crop": "मुख्य फसल",
+    "soil_type": "मिट्टी का प्रकार",
+    "weather_today": "आज का मौसम",
+    "temperature": "तापमान",
+    "humidity": "नमी",
+    "rainfall": "बारिश का पूर्वानुमान",
+    "wind_speed": "हवा की गति",
+    "crop_calendar": "फसल कैलेंडर",
+    "market_prices": "बाजार भाव",
+    "recommendations": "सिफारिशें",
+    "send_message": "संदेश भेजें",
+    "voice_input": "आवाज़ से बोलें"
+  },
+  "crops": {
+    "rice": "धान",
+    "wheat": "गेहूं",
+    "cotton": "कपास",
+    "sugarcane": "गन्ना",
+    "tomato": "टमाटर",
+    "onion": "प्याज",
+    "potato": "आलू",
+    "maize": "मक्का",
+    "soybean": "सोयाबीन"
+  },
+  "soil_types": {
+    "clay": "चिकनी मिट्टी",
+    "loamy": "दोमट मिट्टी", 
+    "sandy": "रेतीली मिट्टी",
+    "black": "काली मिट्टी",
+    "red": "लाल मिट्टी"
+  },
+  "advice": {
+    "irrigation": "सिंचाई की सलाह",
+    "fertilizer": "उर्वरक की सलाह",
+    "pest_control": "कीट नियंत्रण",
+    "weather_alert": "मौसम चेतावनी",
+    "market_update": "बाजार अपडेट"
+  },
+  "messages": {
+    "good_morning": "सुप्रभात! आज आपकी फसल के लिए क्या मदद चाहिए?",
+    "irrigation_needed": "आज सिंचाई की जरूरत है।",
+    "no_irrigation": "आज सिंचाई न करें, बारिश की संभावना है।",
+    "fertilizer_time": "अब उर्वरक डालने का समय है।",
+    "pest_alert": "कीट-पतंगों के लिए सतर्क रहें।",
+    "harvest_ready": "फसल काटने के लिए तैयार है।"
+  }
+}
