@@ -1,1 +1,47 @@
-
+{
+  "name": "agrisense-ai",
+  "version": "1.0.0",
+  "description": "Smart Crop Advisory Agent - AI-powered digital agronomist for farmers",
+  "main": "frontend/index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 -d frontend",
+    "build": "echo 'Static build completed'",
+    "deploy": "npm run build",
+    "serve": "http-server frontend -p 8000",
+    "dev": "python -m http.server 3000 -d frontend",
+    "backend": "cd backend && python app.py",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "agriculture",
+    "ai",
+    "farming",
+    "crop-advisory",
+    "smart-farming",
+    "precision-agriculture",
+    "farmers",
+    "india",
+    "multilingual",
+    "weather",
+    "market-prices",
+    "irrigation",
+    "soil-health",
+    "organic-farming"
+  ],
+  "author": "AgriSense AI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/agrisense-ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/agrisense-ai/issues"
+  },
+  "homepage": "https://github.com/yourusername/agrisense-ai#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
