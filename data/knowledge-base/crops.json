@@ -1,1 +1,96 @@
-
+{
+  "rice": {
+    "name": "Rice",
+    "scientific_name": "Oryza sativa",
+    "seasons": ["Kharif"],
+    "water_requirement": "1200-1500mm",
+    "soil_types": ["Clay", "Loamy", "Clayey loam"],
+    "duration": "120-150 days",
+    "fertilizer_schedule": {
+      "basal": "NPK 60:30:20 kg/ha at transplanting",
+      "top_dressing_1": "Urea 60 kg/ha at 21 DAT",
+      "top_dressing_2": "Urea 40 kg/ha at panicle initiation"
+    },
+    "common_pests": ["Brown planthopper", "Stem borer", "Leaf folder", "Gall midge"],
+    "diseases": ["Blast", "Sheath blight", "Bacterial blight", "Brown spot"],
+    "planting_time": "June-July (Kharif), December-January (Rabi)",
+    "harvest_time": "November-December (Kharif), April-May (Rabi)",
+    "irrigation_schedule": "Keep 2-5cm standing water until grain filling",
+    "yield_potential": "6-8 tonnes/hectare"
+  },
+  "wheat": {
+    "name": "Wheat",
+    "scientific_name": "Triticum aestivum",
+    "seasons": ["Rabi"],
+    "water_requirement": "450-600mm",
+    "soil_types": ["Loamy", "Clay loam", "Sandy loam"],
+    "duration": "120-130 days",
+    "fertilizer_schedule": {
+      "basal": "NPK 60:30:20 kg/ha at sowing",
+      "top_dressing_1": "Urea 65 kg/ha at CRI stage",
+      "top_dressing_2": "Urea 45 kg/ha at late jointing stage"
+    },
+    "common_pests": ["Aphids", "Termites", "Army worm", "Shoot fly"],
+    "diseases": ["Rust (Yellow, Brown, Black)", "Smut", "Bunt", "Powdery mildew"],
+    "planting_time": "November 1-30 (Timely sown), December 1-25 (Late sown)",
+    "harvest_time": "March-April",
+    "irrigation_schedule": "CRI, Late jointing, Flowering, Milk stage",
+    "yield_potential": "4-5 tonnes/hectare"
+  },
+  "cotton": {
+    "name": "Cotton",
+    "scientific_name": "Gossypium hirsutum",
+    "seasons": ["Kharif"],
+    "water_requirement": "700-1300mm",
+    "soil_types": ["Black cotton soil", "Deep loamy", "Well-drained"],
+    "duration": "160-180 days",
+    "fertilizer_schedule": {
+      "basal": "NPK 60:30:30 kg/ha at sowing",
+      "top_dressing_1": "Urea 65 kg/ha at squaring",
+      "top_dressing_2": "Urea 45 kg/ha at flowering"
+    },
+    "common_pests": ["Bollworm", "Aphids", "Jassids", "Thrips", "Whitefly"],
+    "diseases": ["Wilt", "Root rot", "Leaf spot", "Boll rot"],
+    "planting_time": "May-June",
+    "harvest_time": "October-January (multiple pickings)",
+    "irrigation_schedule": "Pre-sowing, Squaring, Flowering, Boll development",
+    "yield_potential": "2-3 tonnes/hectare"
+  },
+  "tomato": {
+    "name": "Tomato",
+    "scientific_name": "Solanum lycopersicum",
+    "seasons": ["Year round (protected cultivation)"],
+    "water_requirement": "600-800mm",
+    "soil_types": ["Well-drained loamy", "Sandy loam", "Red soil"],
+    "duration": "90-120 days after transplanting",
+    "fertilizer_schedule": {
+      "basal": "NPK 60:40:20 kg/ha at transplanting",
+      "weekly_fertigation": "NPK 19:19:19 @ 2-3 kg/ha/week"
+    },
+    "common_pests": ["Fruit borer", "Whitefly", "Leaf miner", "Aphids"],
+    "diseases": ["Early blight", "Late blight", "Wilt", "Leaf curl virus"],
+    "planting_time": "Year round with protected cultivation",
+    "harvest_time": "75-85 days after transplanting",
+    "irrigation_schedule": "Daily drip irrigation maintaining 80% field capacity",
+    "yield_potential": "40-60 tonnes/hectare"
+  },
+  "sugarcane": {
+    "name": "Sugarcane", 
+    "scientific_name": "Saccharum officinarum",
+    "seasons": ["Annual crop"],
+    "water_requirement": "1500-2500mm",
+    "soil_types": ["Deep loamy", "Clay loam", "Well-drained heavy soils"],
+    "duration": "10-12 months",
+    "fertilizer_schedule": {
+      "basal": "NPK 150:60:60 kg/ha at planting",
+      "top_dressing_1": "Urea 130 kg/ha at 45 days",
+      "top_dressing_2": "Urea 130 kg/ha at 90 days"
+    },
+    "common_pests": ["Early shoot borer", "Internode borer", "Root grub"],
+    "diseases": ["Red rot", "Smut", "Wilt", "Mosaic"],
+    "planting_time": "February-April (Spring), October-November (Autumn)",
+    "harvest_time": "12-18 months after planting",
+    "irrigation_schedule": "Weekly irrigation maintaining soil moisture at field capacity",
+    "yield_potential": "80-120 tonnes/hectare"
+  }
+}
