@@ -1,1 +1,133 @@
+/* AgriSense AI - Animation Effects */
 
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide In Animation */
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Typing Dots Animation */
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Loading Spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Apply Animations */
+.message {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.voice-btn.recording {
+    animation: pulse 1s infinite;
+}
+
+.typing-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #667eea;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+.recommendation-item {
+    animation: fadeIn 0.6s ease-out;
+    transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-item {
+    transition: all 0.3s ease;
+}
+
+.calendar-item:hover {
+    transform: translateX(2px);
+}
+
+.price-item {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.price-item:hover {
+    transform: scale(1.02);
+}
+
+.btn-small {
+    transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.analytics-item {
+    transition: transform 0.3s ease;
+}
+
+.analytics-item:hover {
+    transform: scale(1.05);
+}
+
+/* Loading states */
+.loading {
+    animation: spin 1s linear infinite;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-out;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Smooth transitions for all interactive elements */
+button, input, select, .clickable {
+    transition: all 0.3s ease;
+}
+
+/* Page load animation */
+.container {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Staggered animation for sidebar items */
+.profile-card:nth-child(1) { animation-delay: 0.1s; }
+.profile-card:nth-child(2) { animation-delay: 0.2s; }
+.profile-card:nth-child(3) { animation-delay: 0.3s; }
+.profile-card:nth-child(4) { animation-delay: 0.4s; }
+.profile-card:nth-child(5) { animation-delay: 0.5s; }
