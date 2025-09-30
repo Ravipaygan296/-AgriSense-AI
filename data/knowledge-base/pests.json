@@ -1,1 +1,88 @@
-
+{
+  "rice_pests": {
+    "brown_planthopper": {
+      "name": "Brown Planthopper",
+      "scientific_name": "Nilaparvata lugens",
+      "affected_crops": ["Rice"],
+      "damage_symptoms": ["Yellowing and drying of plants", "Hopper burn", "Stunted growth"],
+      "favorable_conditions": ["High humidity", "Dense planting", "Excessive nitrogen"],
+      "control_measures": {
+        "cultural": ["Resistant varieties", "Balanced fertilization", "Proper spacing"],
+        "biological": ["Encourage natural enemies", "Avoid broad spectrum insecticides"],
+        "chemical": ["Imidacloprid 17.8% SL @ 25ml/15L water", "Thiamethoxam 25% WG @ 2g/L"]
+      },
+      "monitoring": "Yellow sticky traps, Visual observation"
+    },
+    "stem_borer": {
+      "name": "Stem Borer",
+      "scientific_name": "Scirpophaga incertulas",
+      "affected_crops": ["Rice"],
+      "damage_symptoms": ["Dead hearts in vegetative stage", "White ears at reproductive stage"],
+      "favorable_conditions": ["High nitrogen", "Dense planting", "Continuous flooding"],
+      "control_measures": {
+        "cultural": ["Resistant varieties", "Proper field sanitation", "Synchronized planting"],
+        "biological": ["Egg parasitoid Trichogramma", "Braconid wasp"],
+        "chemical": ["Chlorantraniliprole 18.5% SC @ 3ml/10L", "Cartap hydrochloride 75% SG @ 2g/L"]
+      },
+      "monitoring": "Pheromone traps, Egg mass counting"
+    }
+  },
+  "wheat_pests": {
+    "aphids": {
+      "name": "Wheat Aphids",
+      "scientific_name": "Rhopalosiphum padi, Sitobion avenae",
+      "affected_crops": ["Wheat", "Barley"],
+      "damage_symptoms": ["Yellowing of leaves", "Curling of flag leaf", "Sooty mold on honeydew"],
+      "favorable_conditions": ["Cool weather", "High humidity", "Dense crop"],
+      "control_measures": {
+        "cultural": ["Early sowing", "Balanced nutrition", "Avoid excessive nitrogen"],
+        "biological": ["Ladybird beetles", "Lacewings", "Parasitic wasps"],
+        "chemical": ["Imidacloprid 200 SL @ 0.3ml/L", "Thiamethoxam 25% WG @ 2g/L"]
+      },
+      "monitoring": "Visual observation, Sticky traps"
+    },
+    "termites": {
+      "name": "Termites",
+      "scientific_name": "Odontotermes obesus",
+      "affected_crops": ["Wheat", "Sugarcane", "Cotton"],
+      "damage_symptoms": ["Cutting of roots and shoots", "Wilting and death", "Mud galleries"],
+      "favorable_conditions": ["Sandy soil", "Low moisture", "Organic matter"],
+      "control_measures": {
+        "cultural": ["Deep summer ploughing", "Crop rotation", "Proper irrigation"],
+        "biological": ["Beauveria bassiana", "Metarhizium anisopliae"],
+        "chemical": ["Chlorpyrifos 20% EC @ 2.5L/ha soil application", "Imidacloprid 600 FS seed treatment"]
+      },
+      "monitoring": "Soil examination, Damage assessment"
+    }
+  },
+  "cotton_pests": {
+    "bollworm": {
+      "name": "Cotton Bollworm",
+      "scientific_name": "Helicoverpa armigera",
+      "affected_crops": ["Cotton", "Tomato", "Chickpea"],
+      "damage_symptoms": ["Holes in leaves", "Damage to squares and bolls", "Frass near holes"],
+      "favorable_conditions": ["Warm weather", "High humidity", "Flowering stage"],
+      "control_measures": {
+        "cultural": ["Bt cotton varieties", "Intercropping with marigold", "Timely picking"],
+        "biological": ["NPV (Nuclear Polyhedrosis Virus)", "Trichogramma release"],
+        "chemical": ["Emamectin benzoate 5% SG @ 4g/10L", "Chlorantraniliprole 18.5% SC @ 3ml/10L"]
+      },
+      "monitoring": "Pheromone traps, Larval counting"
+    }
+  },
+  "vegetable_pests": {
+    "whitefly": {
+      "name": "Whitefly",
+      "scientific_name": "Bemisia tabaci",
+      "affected_crops": ["Tomato", "Brinjal", "Okra", "Cotton"],
+      "damage_symptoms": ["Yellowing of leaves", "Sooty mold", "Virus transmission"],
+      "favorable_conditions": ["Hot and dry weather", "Dense planting"],
+      "control_measures": {
+        "cultural": ["Yellow sticky traps", "Reflective mulch", "Crop rotation"],
+        "biological": ["Encarsia formosa", "Chrysoperla carnea"],
+        "chemical": ["Spiromesifen 22.9% SC @ 1.5ml/L", "Pyriproxyfen 10% EC @ 1ml/L"]
+      },
+      "monitoring": "Yellow sticky traps, Visual inspection"
+    }
+  }
+}
