@@ -107,7 +107,6 @@ EOF
 
 # 📄 LICENSE
 # File: AgriSense-AI/LICENSE
-# ==================================================
 cat > LICENSE << 'EOF'
 MIT License
 
